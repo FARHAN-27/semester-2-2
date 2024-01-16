@@ -1,0 +1,110 @@
+//person table
+CREATE TABLE Person (
+    person_id INT PRIMARY KEY,
+    person_name VARCHAR(255),
+    dob DATE,
+    gender VARCHAR(10),
+    father INT,
+    mother INT,
+    FOREIGN KEY (father) REFERENCES Person(person_id),
+    FOREIGN KEY (mother) REFERENCES Person(person_id)
+);
+
+
+//company table
+CREATE TABLE Company (
+    company_id INT PRIMARY KEY,
+    company_name VARCHAR(255),
+    capital DECIMAL(18, 2)
+);
+investment table
+
+
+CREATE TABLE Investment (
+    company_id INT,
+    person INT,
+    share INT,
+    FOREIGN KEY (company_id) REFERENCES Company(company_id),
+    FOREIGN KEY (person) REFERENCES Person(person_id)
+);
+
+
+
+//insert 10 values to the person tables
+
+INSERT INTO Person (person_id, person_name, dob, gender, father, mother)
+VALUES
+    (1, 'John Doe', '1990-05-15', 'Male', NULL, NULL),
+    (2, 'Jane Smith', '1985-10-20', 'Female', NULL, NULL),
+    (3, 'Michael Johnson', '1972-03-08', 'Male', NULL, NULL),
+    (4, 'Emily Davis', '1998-09-03', 'Female', 1, 2),
+    (5, 'William Brown', '2002-12-12', 'Male', 1, 2),
+    (6, 'Sophia Miller', '1980-07-25', 'Female', 3, NULL),
+    (7, 'Ethan Wilson', '1995-11-18', 'Male', 3, NULL),
+    (8, 'Olivia Taylor', '2001-02-09', 'Female', 4, NULL),
+    (9, 'James Anderson', '1968-08-30', 'Male', NULL, NULL),
+    (10, 'Ava Martinez', '1979-06-21', 'Female', NULL, NULL);
+
+
+
+
+
+//insert 5 values to the company table
+
+INSERT INTO Company (company_id, company_name, capital)
+VALUES
+    (1, 'ABC Corp', 1000000.00),
+    (2, 'XYZ Ltd', 750000.50),
+    (3, 'DEF Industries', 500000.75),
+    (4, 'LMN Enterprises', 300000.25),
+    (5, 'PQR Ventures', 200000.50);
+    
+    
+
+
+//insert 10 values to the  investment table
+INSERT INTO Investment (company_id, person, share)
+VALUES
+    (1, 4, 500),
+    (2, 5, 300),
+    (3, 6, 1000),
+    (1, 7, 200),
+    (4, 8, 150),
+    (2, 9, 400),
+    (5, 10, 250),
+    (3, 4, 800),
+    (4, 6, 300),
+    (1, 9, 700);
+    
+    
+
+
+//update value
+UPDATE Person
+SET person_name = 'Updated Name', gender= 'male'
+WHERE person_id = 1;
+
+
+
+//find person whose father and mother is null
+SELECT *
+FROM Person
+WHERE father IS NULL AND mother IS NULL;
+
+
+
+
+
+SELECT *
+FROM Person
+WHERE father IS NOT NULL OR mother IS NOT NULL;
+
+
+
+//age 20 to 50
+SELECT *
+FROM Person
+WHERE DATEDIFF(NOW(), dob) BETWEEN 20 * 365 AND 50 * 365;
+
+
+
